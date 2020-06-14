@@ -1,4 +1,3 @@
-
 import os
 import time
 from flask import Flask, abort, request, jsonify, g, url_for
@@ -53,7 +52,7 @@ def verify_password(username_or_token, password):
         # try to authenticate with username/password
         user = User.query.filter_by(username=username_or_token).first()
         if not user or not user.verify_password(password):
-            return username_or_token
+            return False
     g.user = user
     return True
 
@@ -97,5 +96,5 @@ def get_resource():
 
 if __name__ == '__main__':
 #    if not os.path.exists('db.sqlite'):
-    db.create_all()
+#   db.create_all()
     app.run(host='0.0.0.0',debug=False)
