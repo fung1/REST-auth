@@ -10,7 +10,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 # initialization
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'the quick brown fox jumps over the lazy dog'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('MYSQL_URI')
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 
 # extensions
@@ -96,6 +96,6 @@ def get_resource():
 
 
 if __name__ == '__main__':
-    if not os.path.exists('db.sqlite'):
-        db.create_all()
+#    if not os.path.exists('db.sqlite'):
+    db.create_all(checkfirst=True)
     app.run(host='0.0.0.0',debug=False)
